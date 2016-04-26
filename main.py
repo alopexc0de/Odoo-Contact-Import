@@ -48,6 +48,7 @@ def find_index(row=None, col=None):
     return index
 
 os.rename(config['import_path'], config['import_path']+'.orig') # Store the original import_path in a backup file
+os.remove(config['temp_path']) # Delete the temp file if it exists for some reason
 
 with open(config['partner_path'], 'r') as partner_csv:
     reader = csv.reader(partner_csv)
@@ -67,10 +68,10 @@ with open(config['partner_path'], 'r') as partner_csv:
     partner_ids = {rows[name]:rows[id] for rows in reader} # Build a dict containing the company names as the keys and the __export__IDs as values
     reader = None
 
-    # Open both the import_csv and temp_csv files
+    # Open both the import_csv (read-only) and temp_csv (write-only) files
     with open(config['import_path']+'.orig', 'r') as import_csv, open(config['temp_path'], 'w') as temp_csv:
         reader = csv.reader(import_csv)
-        writer = csv.writer(temp_csv, lineterminator='\n')
+        writer = csv.writer(temp_csv, lineterminator='\n') 
 
         first_row = next(reader) 
         if config['column_to_change'] not in first_row:
@@ -83,7 +84,8 @@ with open(config['partner_path'], 'r') as partner_csv:
             writer.writerow(first_row)
             for lines in reader:
                 # Taken from http://stackoverflow.com/a/2400577/5727514 and modified to support what I need 
-                pattern = re.compile('|'.join(partner_ids.keys()))
+                pattern = re.compile(r'\b(' + '|'.join(partner_ids.keys()) + r')\b')
+                #pattern = re.compile('|'.join(partner_ids.keys()))
                 lines[col] = pattern.sub(lambda x: partner_ids[x.group()], lines[col])
 
                 writer.writerow(lines)

@@ -1,7 +1,7 @@
 ERP Contact Import Tool
 =======================
 
-This utility fixes the contacts csv file for importing into our ERP (Odoo)
+This utility fixes the contacts csv file for importing into our ERP (Odoo)  
 Specifically this utility will replace all the values in a csv column with a dictionary created through another csv file
 
 Copyright (c) 2016 David Todd (alopexc0de) https://c0defox.es
