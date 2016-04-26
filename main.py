@@ -64,7 +64,7 @@ with open(config['partner_path'], 'r') as partner_csv:
         raise ValueError('Either id or name could not be indexed with find_index')
         exit(1)
 
-    partner_ids = {rows[id]:rows[name] for rows in reader} # Build a dict containing the company names as the keys and the __export__IDs as values
+    partner_ids = {rows[name]:rows[id] for rows in reader} # Build a dict containing the company names as the keys and the __export__IDs as values
     reader = None
 
     # Open both the import_csv and temp_csv files
