@@ -1,5 +1,5 @@
 # ERP Contact Import Tool
-# This utility fixes the contacts csv file for importing into the ERP
+# This utility fixes the contacts csv file for importing into our ERP (Odoo)
 # Specifically this utility is for the step of replacing the company names with their export_ids after the companies have been imported
 
 # Copyright (c) 2016 David Todd (alopexc0de) https://c0defox.es
@@ -28,7 +28,7 @@ config = {
 
 # Find the index number of a column in a row and return that
 def find_index(row=None, col=None):
-    if ((row == None) | (col == None)) | ((type(row) != '') | (type(col) != '')):
+    if ((row == None) | (col == None)) | ((type(row) != type(str)) | (type(col) != type(str))):
         raise ValueError('find_index requires both row and col to be set to strings')
         exit(1)
 
