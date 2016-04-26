@@ -28,10 +28,10 @@ import re
 
 # Change these paths to reflect your needs
 config = {
-    'partner_path': 'C:\\Users\\dtodd\\Desktop\\res.partner (2).csv',                                                   # This is the csv file containing two columns, id and name
-    'import_path': 'C:\\Users\\dtodd\\Desktop\\To Import\\MN Companies-50 FTE-HQ one (contacts) Campaign.csv',          # This is the csv file containing whatever needs to be imported
-    'temp_path': 'C:\\Users\\dtodd\\Desktop\\temp',                                                                     # This is a csv file that will be deleted on program completion
-    'column_to_change': 'parent_id/id'                                                                                  # This is the name of the column that you want to change
+    'partner_path': 'C:\\res.partner.csv',    # This is the csv file containing two columns, id and name
+    'import_path': 'C:\\import.csv',          # This is the csv file containing whatever needs to be imported
+    'temp_path': 'C:\\temp',                  # This is a csv file that will be deleted on program completion
+    'column_to_change': 'parent_id/id'        # This is the name of the column that you want to change
 }
 
 # Find the index number of a column in a row and return that
