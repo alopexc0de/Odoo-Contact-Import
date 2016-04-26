@@ -36,9 +36,9 @@ config = {
 
 # Find the index number of a column in a row and return that
 def find_index(row=None, col=None):
-    if ((row == None) | (col == None)) | ((type(row) != type(str)) | (type(col) != type(str))):
-        raise ValueError('find_index requires both row and col to be set to strings')
-        exit(1)
+    # if ((row == None) | (col == None)) | ((type(row) != type(str)) | (type(col) != type(str))):
+    #     raise ValueError('find_index requires both row and col to be set to strings')
+    #     exit(1)
 
     index = None
     for i,j in enumerate(row):
@@ -68,18 +68,19 @@ with open(config['partner_path'], 'r') as partner_csv:
     reader = None
 
     # Open both the import_csv and temp_csv files
-    with open(config['import_path'], 'r') as import_csv, open(config['temp_path'], 'w') as temp_csv:
+    with open(config['import_path']+'.orig', 'r') as import_csv, open(config['temp_path'], 'w') as temp_csv:
         reader = csv.reader(import_csv)
-        writer = csv.writer(temp_csv)
+        writer = csv.writer(temp_csv, lineterminator='\n')
 
-        first_row = next(reader)
+        first_row = next(reader) 
         if config['column_to_change'] not in first_row:
-            raise IndexError('\'{}\' is not defined in your import_path csv file').format(config['column_to_change'])
+            raise IndexError(config['column_to_change']+' is not defined in your import_path csv file')
             exit(1)
 
         col = find_index(first_row, config['column_to_change'])
 
         if col != None: 
+            writer.writerow(first_row)
             for lines in reader:
                 # Taken from http://stackoverflow.com/a/2400577/5727514 and modified to support what I need 
                 pattern = re.compile('|'.join(partner_ids.keys()))
